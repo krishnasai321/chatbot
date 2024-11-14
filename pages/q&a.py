@@ -40,7 +40,7 @@ if uploaded_file and question and openai_api_key:
     prompt = PromptTemplate(input_variables=["article", "question"], template=prompt_template)
 
     # Set up the OpenAI model through Langchain
-    llm = OpenAI(temperature=0.7,model="gpt-3.5-turbo")
+    llm = OpenAI(temperature=0.7)
 
     # Create the LLMChain with Langchain
     chain = LLMChain(llm=llm, prompt=prompt)
