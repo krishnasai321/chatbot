@@ -4,6 +4,9 @@ from langchain_community.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
+# Custom title for the page
+st.set_page_config(page_title="Chat with your Txt file", page_icon="📝")
+
 # Title of the app
 st.title("📝 File Q&A with Langchain and OpenAI")
 
