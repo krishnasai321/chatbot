@@ -18,10 +18,6 @@ question = st.text_input(
 # Check if API key is provided
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
-# Show info message if API key is missing
-if uploaded_file and question and not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.")
-
 # Langchain setup
 if uploaded_file and question and openai_api_key:
     # Read the uploaded file content
@@ -43,8 +39,8 @@ if uploaded_file and question and openai_api_key:
     # Create the prompt template for Langchain
     prompt = PromptTemplate(input_variables=["article", "question"], template=prompt_template)
 
-    # Set up the OpenAI model to GPT-3.5 Turbo
-    llm = OpenAI(temperature=0.7, model="gpt-3.5-turbo")
+    # Set up the OpenAI model through Langchain
+    llm = OpenAI(temperature=0.7)
 
     # Create the LLMChain with Langchain
     chain = LLMChain(llm=llm, prompt=prompt)
@@ -55,3 +51,4 @@ if uploaded_file and question and openai_api_key:
     # Display the result
     st.write("### Answer")
     st.write(answer)
+
