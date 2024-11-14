@@ -1,14 +1,14 @@
 import streamlit as st
 from openai import OpenAI
 
+# Custom title for the page
+st.set_page_config(page_title="Chat with GPT", page_icon="📝")
+
 # Show title and description.
 st.title("💬 Chatbot")
 st.write(
     "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses."
 )
-
-# Custom title for the page
-st.set_page_config(page_title="Chat with GPT", page_icon="📝")
 
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
