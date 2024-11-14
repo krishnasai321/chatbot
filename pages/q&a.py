@@ -21,24 +21,12 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 # Show info message if API key is missing
 if uploaded_file and question and not openai_api_key:
     st.info("Please add your OpenAI API key to continue.")
-    
+
 # Langchain setup
 if uploaded_file and question and openai_api_key:
     # Read the uploaded file content
     article = uploaded_file.read().decode()
 
-    # Word count check
-    word_limit = 1000
-    word_count = len(article.split())
-
-    # If the word count exceeds 1000, show a disclaimer and truncate the article
-    if word_count > word_limit:
-        st.warning(f"The article exceeds {word_limit} words. It will be truncated to fit the limit.")
-        article = " ".join(article.split()[:word_limit])  # Truncate article to 1000 words
-
-    # Display the article length
-    st.write(f"Article contains {word_count} words.")
-    
     # Set the OpenAI API key for Langchain
     openai.api_key = openai_api_key
 
