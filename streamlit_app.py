@@ -50,6 +50,7 @@ else:
             stream=True,
         )
 
+
         # Stream the response to the chat using `st.write_stream`, then store it in 
         # session state.
         with st.chat_message("assistant"):
