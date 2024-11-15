@@ -8,4 +8,3 @@ tabulate
 langchain_core
 pypdf
 faiss-cpu
-faiss-gpu
