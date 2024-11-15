@@ -3,6 +3,7 @@ import openai
 from langchain_community.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from langchain_openai import ChatOpenAI
 
 # Custom title for the page
 st.set_page_config(page_title="Chat with your Txt file", page_icon="📝")
@@ -43,7 +44,14 @@ if uploaded_file and question and openai_api_key:
     prompt = PromptTemplate(input_variables=["article", "question"], template=prompt_template)
 
     # Set up the OpenAI model through Langchain
-    llm = OpenAI(temperature=0.7)
+    # llm = OpenAI(temperature=0.7)
+ 
+    llm = ChatOpenAI(
+    model = 'gpt-3.5-turbo-0125',
+    temperature=0.3,
+    max_tokens=100,
+    timeout=None
+    )   
 
     # Create the LLMChain with Langchain
     chain = LLMChain(llm=llm, prompt=prompt)
