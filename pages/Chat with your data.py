@@ -33,7 +33,7 @@ if uploaded_file and question and openai_api_key:
 
     agent = create_pandas_dataframe_agent(OpenAI(temperature=0), df, verbose=True,allow_dangerous_code=True)
 
-    answer = agent.invoke(question).output
+    answer = agent.invoke(question)['output']
 
     # Display the result
     st.write("### Answer")
