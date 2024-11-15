@@ -9,7 +9,7 @@ from langchain_openai import ChatOpenAI
 st.set_page_config(page_title="Chat with your Txt file", page_icon="📝")
 
 # Title of the app
-st.title("📝 File Q&A with Langchain and OpenAI")
+st.title("📝 File Q&A with Langchain and OpenAI - Basic in prompt approach")
 
 # File uploader and question input
 uploaded_file = st.file_uploader("Upload an article", type=("txt", "md"))
