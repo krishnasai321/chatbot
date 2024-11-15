@@ -5,5 +5,4 @@ langchain_community
 langchain_openai
 langchain_experimental
 tabulate
-enum
 langchain_core

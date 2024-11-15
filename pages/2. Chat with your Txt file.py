@@ -5,11 +5,11 @@ from langchain_openai import ChatOpenAI
 import os
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from enum import Enum
 from langchain.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_openai import OpenAIEmbeddings
 
 # Custom title for the page
 st.set_page_config(page_title="Chat with your Txt file", page_icon="📝")
@@ -46,46 +46,6 @@ def replace_t_with_space(list_of_documents):
     for doc in list_of_documents:
         doc.page_content = doc.page_content.replace('\t', ' ')  # Replace tabs with spaces
     return list_of_documents
-
-# Enum class representing different embedding providers
-class EmbeddingProvider(Enum):
-    OPENAI = "openai"
-    COHERE = "cohere"
-    AMAZON_BEDROCK = "bedrock"
-
-# Enum class representing different model providers
-class ModelProvider(Enum):
-    OPENAI = "openai"
-    GROQ = "groq"
-    ANTHROPIC = "anthropic"
-    AMAZON_BEDROCK = "bedrock"
-
-
-def get_langchain_embedding_provider(provider: EmbeddingProvider, model_id: str = None):
-    """
-    Returns an embedding provider based on the specified provider and model ID.
-
-    Args:
-        provider (EmbeddingProvider): The embedding provider to use.
-        model_id (str): Optional -  The specific embeddings model ID to use .
-
-    Returns:
-        A LangChain embedding provider instance.
-
-    Raises:
-        ValueError: If the specified provider is not supported.
-    """
-    if provider == EmbeddingProvider.OPENAI:
-        from langchain_openai import OpenAIEmbeddings
-        return OpenAIEmbeddings()
-    elif provider == EmbeddingProvider.COHERE:
-        from langchain_cohere import CohereEmbeddings
-        return CohereEmbeddings()
-    elif provider == EmbeddingProvider.AMAZON_BEDROCK:
-        from langchain_community.embeddings import BedrockEmbeddings
-        return BedrockEmbeddings(model_id=model_id) if model_id else BedrockEmbeddings(model_id="amazon.titan-embed-text-v2:0")
-    else:
-        raise ValueError(f"Unsupported embedding provider: {provider}")
     
 def encode_pdf(path, chunk_size=1000, chunk_overlap=200):
     """
@@ -112,7 +72,7 @@ def encode_pdf(path, chunk_size=1000, chunk_overlap=200):
     cleaned_texts = replace_t_with_space(texts)
 
     # Create embeddings and vector store
-    embeddings = get_langchain_embedding_provider(EmbeddingProvider.OPENAI)
+    embeddings = OpenAIEmbeddings()
     vectorstore = FAISS.from_documents(cleaned_texts, embeddings)
 
     return vectorstore
